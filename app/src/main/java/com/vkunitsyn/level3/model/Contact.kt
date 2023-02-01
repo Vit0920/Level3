@@ -8,7 +8,6 @@ class Contact(
     var phone: String = "",
     var address: String = "",
     var birthday: String = ""
-
 )
 
 
