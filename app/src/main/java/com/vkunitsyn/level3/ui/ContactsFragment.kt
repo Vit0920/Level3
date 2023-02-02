@@ -1,28 +1,42 @@
-package com.vkunitsyn.level3.ui.contactsActivity
+package com.vkunitsyn.level3.ui
 
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.adapter.ContactsAdapter
-import com.vkunitsyn.level3.databinding.ActivityContactsBinding
+import com.vkunitsyn.level3.databinding.FragmentContactsBinding
 import com.vkunitsyn.level3.model.Contact
-import com.vkunitsyn.level3.ui.AddContactFragment
 
-class ContactsActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityContactsBinding
+class ContactsFragment : Fragment() {
+
+    companion object {
+        fun newInstance() = ContactsFragment()
+    }
+
+    private lateinit var viewModel: ContactsFragmentViewModel
+    private lateinit var binding: FragmentContactsBinding
     lateinit var adapter: ContactsAdapter
 
-    private val viewModel: ContactsViewModel by viewModels()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentContactsBinding.inflate(inflater)
+        return binding.root
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityContactsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        viewModel.contactsList.observe(this) { adapter.refresh(it) }
+
+    override fun onViewCreated(View: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(View,savedInstanceState)
+        viewModel = ViewModelProvider(this).get(ContactsFragmentViewModel::class.java)
+        viewModel.contactsList.observe(viewLifecycleOwner) { adapter.refresh(it) }
         initAdapter()
         adapter.onTrashBinClick = { position -> deleteContact(position) }
         processBackArrowClick()
@@ -48,13 +62,16 @@ class ContactsActivity : AppCompatActivity() {
 
     private fun processAddContactClick() {
         binding.tvAddContact.setOnClickListener {
-            AddContactFragment().show(supportFragmentManager, getString(R.string.tv_add_contact))
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, AddContactFragment())
+                .addToBackStack(null)
+                .commit()
         }
     }
 
     private fun processBackArrowClick() {
         binding.ibArrowBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+            parentFragmentManager.popBackStack()
         }
     }
 
@@ -90,8 +107,4 @@ class ContactsActivity : AppCompatActivity() {
         }.show()
     }
 
-
 }
-
-
-

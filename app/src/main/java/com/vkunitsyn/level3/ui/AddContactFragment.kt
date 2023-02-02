@@ -13,7 +13,6 @@ import androidx.fragment.app.DialogFragment
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.FragmentAddContactBinding
 import com.vkunitsyn.level3.model.Contact
-import com.vkunitsyn.level3.ui.contactsActivity.ContactsActivity
 import com.vkunitsyn.level3.utils.Constants
 import com.vkunitsyn.level3.utils.addPictureGlide
 import java.io.File
@@ -93,9 +92,9 @@ class AddContactFragment : DialogFragment() {
     private fun processSaveButtonClick() {
 
         binding.mbSaveAddContact.setOnClickListener {
-            val position = (activity as ContactsActivity).adapter.itemCount
-            (activity as ContactsActivity).addContact(position, createNewContact())
-            dismiss()
+//            val position = (activity as ContactsActivity).adapter.itemCount
+//            (activity as ContactsActivity).addContact(position, createNewContact())
+//            dismiss()
         }
     }
 

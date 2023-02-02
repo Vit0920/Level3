@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.FragmentAuthBinding
 import com.vkunitsyn.level3.utils.Constants
+import com.vkunitsyn.level3.utils.Parser
 import com.vkunitsyn.level3.utils.Validator
 
 
@@ -53,18 +54,18 @@ class AuthFragment : Fragment() {
             checkIfPasswordIsEmpty()
             //Register button won't work if either e-mail or password layouts display errors
             if (noInputErrors()) {
+
+                processSharedPreferences()
+
+                val profileFragment = ProfileFragment()
+                val bundle = Bundle()
+                bundle.putString(Constants.USER_NAME, Parser.parseEmail(binding.tietEmail.text.toString()))
+                profileFragment.arguments = bundle
+
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, ProfileFragment())
+                    .replace(R.id.fragment_container, profileFragment)
                     .addToBackStack(null)
                     .commit()
-
-//                processSharedPreferences()
-//                val intent = Intent(this@AuthActivity, ProfileActivity::class.java)
-//                intent.putExtra(
-//                    Constants.USER_NAME,
-//                    Parser.parseEmail(binding.tietEmail.text.toString())
-//                )
-//                startActivity(intent)
             }
         }
     }

@@ -14,8 +14,7 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsAdapter.MyViewHolder>() {
 
     private lateinit var myRecyclerView: RecyclerView
     var onTrashBinClick: ((Int) -> (Unit))? = null
-
-    private var contactsList: ArrayList<Contact> = ArrayList()
+    private var contactsList = listOf<Contact>()
 
 
     inner class MyViewHolder(item: View) : RecyclerView.ViewHolder(item) {
@@ -52,7 +51,7 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsAdapter.MyViewHolder>() {
     override fun getItemCount(): Int = contactsList.size
 
 
-    fun refresh(contacts: ArrayList<Contact>) {
+    fun refresh(contacts: List<Contact>) {
         contactsList = contacts
     }
 
