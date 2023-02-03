@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorPrimaryVariant"
     android:orientation="vertical"
-    tools:context="com.vkunitsyn.level3.ui.ProfileActivity">
+    tools:context="com.vkunitsyn.level3.ui.ProfileFragment">
 
     <TextView
         android:layout_width="wrap_content"

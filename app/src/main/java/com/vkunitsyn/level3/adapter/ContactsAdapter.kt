@@ -22,7 +22,7 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsAdapter.MyViewHolder>() {
         fun bind(contact: Contact) = binding.apply {
             tvModelUserName.text = contact.name
             tvUserModelCareer.text = contact.career
-            if (contact.picture.isEmpty()) {
+            if (contact.picture?.isEmpty() == true) {
                 ivModelProfilePicture.addPictureGlide(R.drawable.default_profile_picture)
             } else {
                 ivModelProfilePicture.addPictureGlide(contact.picture)

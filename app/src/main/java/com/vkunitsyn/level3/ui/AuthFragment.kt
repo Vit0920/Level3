@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.FragmentAuthBinding
 import com.vkunitsyn.level3.utils.Constants
@@ -61,11 +62,10 @@ class AuthFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putString(Constants.USER_NAME, Parser.parseEmail(binding.tietEmail.text.toString()))
                 profileFragment.arguments = bundle
-
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, profileFragment)
-                    .addToBackStack(null)
-                    .commit()
+                parentFragmentManager.commit {
+                    replace(R.id.fragment_container, profileFragment)
+                    addToBackStack(null)
+                }
             }
         }
     }

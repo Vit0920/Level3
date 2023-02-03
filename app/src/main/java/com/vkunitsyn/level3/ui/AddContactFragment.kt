@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider.getUriForFile
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.setFragmentResult
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.FragmentAddContactBinding
 import com.vkunitsyn.level3.model.Contact
@@ -24,7 +26,6 @@ class AddContactFragment : DialogFragment() {
     lateinit var getPhoto: ActivityResultLauncher<Uri>
     lateinit var chooseImage: ActivityResultLauncher<String>
     var imageFileUri: Uri? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -86,15 +87,18 @@ class AddContactFragment : DialogFragment() {
     }
 
     private fun processBackArrowClick() {
-        binding.ibArrowBackAddContact.setOnClickListener { dismiss() }
+        binding.ibArrowBackAddContact.setOnClickListener {
+            dismiss()
+        }
     }
 
     private fun processSaveButtonClick() {
 
         binding.mbSaveAddContact.setOnClickListener {
-//            val position = (activity as ContactsActivity).adapter.itemCount
-//            (activity as ContactsActivity).addContact(position, createNewContact())
-//            dismiss()
+            val result: Contact = createNewContact()
+            setFragmentResult("get result", bundleOf("contact" to result))
+
+            dismiss()
         }
     }
 

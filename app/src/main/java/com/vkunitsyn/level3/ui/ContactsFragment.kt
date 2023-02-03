@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -20,14 +21,14 @@ class ContactsFragment : Fragment() {
         fun newInstance() = ContactsFragment()
     }
 
-    private lateinit var viewModel: ContactsFragmentViewModel
+    private lateinit var viewModel: ContactsViewModel
     private lateinit var binding: FragmentContactsBinding
     lateinit var adapter: ContactsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentContactsBinding.inflate(inflater)
         return binding.root
     }
@@ -35,7 +36,14 @@ class ContactsFragment : Fragment() {
 
     override fun onViewCreated(View: View, savedInstanceState: Bundle?) {
         super.onViewCreated(View,savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ContactsFragmentViewModel::class.java)
+        setFragmentResultListener("get result") { _, bundle ->
+            val contact = bundle.getParcelable<Contact>("contact")
+            val position = adapter.itemCount
+            if (contact != null) {
+                addContact(position,contact)
+            }
+        }
+        viewModel = ViewModelProvider(this).get(ContactsViewModel::class.java)
         viewModel.contactsList.observe(viewLifecycleOwner) { adapter.refresh(it) }
         initAdapter()
         adapter.onTrashBinClick = { position -> deleteContact(position) }
@@ -62,10 +70,7 @@ class ContactsFragment : Fragment() {
 
     private fun processAddContactClick() {
         binding.tvAddContact.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, AddContactFragment())
-                .addToBackStack(null)
-                .commit()
+            AddContactFragment().show(parentFragmentManager, getString(R.string.tv_add_contact))
         }
     }
 
@@ -91,7 +96,7 @@ class ContactsFragment : Fragment() {
         }
     }
 
-    fun addContact(position: Int, contact: Contact) {
+    private fun addContact(position: Int, contact: Contact) {
         viewModel.add(position, contact)
         adapter.notifyItemInserted(position)
     }

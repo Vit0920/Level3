@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.FragmentProfileBinding
 import com.vkunitsyn.level3.utils.Constants
@@ -20,23 +22,21 @@ class ProfileFragment : Fragment() {
 
         binding = FragmentProfileBinding.inflate(inflater)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Displays user name
+
         binding.tvName.text = arguments?.getString(Constants.USER_NAME)
         processViewContactsButtonClick()
-
     }
 
     private fun processViewContactsButtonClick() {
         binding.mbViewContacts.setOnClickListener(){
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ContactsFragment())
-                .addToBackStack(null)
-                .commit()
+            parentFragmentManager.commit {
+                replace<ContactsFragment>(R.id.fragment_container)
+                addToBackStack(null)
+            }
         }
     }
 }
