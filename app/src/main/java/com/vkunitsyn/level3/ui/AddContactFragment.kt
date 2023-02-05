@@ -55,8 +55,10 @@ class AddContactFragment : DialogFragment() {
 
         chooseImage = registerForActivityResult(ActivityResultContracts.GetContent())
         { result ->
-            binding.ivNewContactPicture.addPictureGlide(result!!)
-            imageFileUri = result
+            if (result != null){
+                binding.ivNewContactPicture.addPictureGlide(result)
+                imageFileUri = result
+            }
         }
         processAddPictureClick()
     }
@@ -96,7 +98,7 @@ class AddContactFragment : DialogFragment() {
 
         binding.mbSaveAddContact.setOnClickListener {
             val result: Contact = createNewContact()
-            setFragmentResult("get result", bundleOf("contact" to result))
+            setFragmentResult("result", bundleOf("contact" to result))
 
             dismiss()
         }

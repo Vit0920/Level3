@@ -36,7 +36,7 @@ class ContactsFragment : Fragment() {
 
     override fun onViewCreated(View: View, savedInstanceState: Bundle?) {
         super.onViewCreated(View,savedInstanceState)
-        setFragmentResultListener("get result") { _, bundle ->
+        setFragmentResultListener("result") { _, bundle ->
             val contact = bundle.getParcelable<Contact>("contact")
             val position = adapter.itemCount
             if (contact != null) {

@@ -9,7 +9,7 @@ import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.ActivityAuthBinding
 import com.vkunitsyn.level3.utils.Constants
 
-class AuthActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAuthBinding
     private lateinit var prefs: SharedPreferences
@@ -22,6 +22,7 @@ class AuthActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
                 add<AuthFragment>(R.id.fragment_container)
+                addToBackStack(null)
             }
         }
     }

@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorPrimaryVariant"
-    tools:context="com.vkunitsyn.level3.ui.AuthActivity">
+    tools:context="com.vkunitsyn.level3.ui.MainActivity">
 
 </androidx.fragment.app.FragmentContainerView>
