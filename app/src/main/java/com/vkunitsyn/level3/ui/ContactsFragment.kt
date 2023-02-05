@@ -70,7 +70,8 @@ class ContactsFragment : Fragment() {
 
     private fun processAddContactClick() {
         binding.tvAddContact.setOnClickListener {
-            AddContactFragment().show(parentFragmentManager, getString(R.string.tv_add_contact))
+            val dialogAddContact = AddContactFragment()
+            dialogAddContact.show(parentFragmentManager, getString(R.string.tv_add_contact))
         }
     }
 
@@ -106,7 +107,7 @@ class ContactsFragment : Fragment() {
         Snackbar.make(
             binding.rvContacts,
             contact.name + getString(R.string.has_been_removed),
-            Snackbar.LENGTH_LONG
+            Snackbar.LENGTH_SHORT
         ).setAction(R.string.undo) {
             addContact(position, contact)
         }.show()

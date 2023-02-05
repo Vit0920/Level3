@@ -63,6 +63,7 @@ class AuthFragment : Fragment() {
                 bundle.putString(Constants.USER_NAME, Parser.parseEmail(binding.tietEmail.text.toString()))
                 profileFragment.arguments = bundle
                 parentFragmentManager.commit {
+                    setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
                     replace(R.id.fragment_container, profileFragment)
                     addToBackStack(null)
                 }

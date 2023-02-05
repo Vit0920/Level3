@@ -34,6 +34,7 @@ class ProfileFragment : Fragment() {
     private fun processViewContactsButtonClick() {
         binding.mbViewContacts.setOnClickListener(){
             parentFragmentManager.commit {
+                setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
                 replace<ContactsFragment>(R.id.fragment_container)
                 addToBackStack(null)
             }

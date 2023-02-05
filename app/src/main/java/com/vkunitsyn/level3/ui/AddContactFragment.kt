@@ -22,23 +22,29 @@ import java.io.File
 
 class AddContactFragment : DialogFragment() {
 
-    lateinit var binding: FragmentAddContactBinding
-    lateinit var getPhoto: ActivityResultLauncher<Uri>
-    lateinit var chooseImage: ActivityResultLauncher<String>
-    var imageFileUri: Uri? = null
+    private lateinit var binding: FragmentAddContactBinding
+    private lateinit var getPhoto: ActivityResultLauncher<Uri>
+    private lateinit var chooseImage: ActivityResultLauncher<String>
+    private var imageFileUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        dialog?.window?.setWindowAnimations(R.style.dialog_animation_fade)
         binding = FragmentAddContactBinding.inflate(inflater)
         return binding.root
+
     }
+
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialog?.window?.setWindowAnimations(
+            R.style.dialog_animation_fade)
         binding.ivNewContactPicture.addPictureGlide(R.drawable.default_profile_picture)
         processSaveButtonClick()
         processBackArrowClick()
