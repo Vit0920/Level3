@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.setFragmentResultListener
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -14,6 +15,7 @@ import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.adapter.ContactsAdapter
 import com.vkunitsyn.level3.databinding.FragmentContactsBinding
 import com.vkunitsyn.level3.model.Contact
+import com.vkunitsyn.level3.utils.FeatureFlags
 
 class ContactsFragment : Fragment() {
 
@@ -35,12 +37,12 @@ class ContactsFragment : Fragment() {
 
 
     override fun onViewCreated(View: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(View,savedInstanceState)
+        super.onViewCreated(View, savedInstanceState)
         setFragmentResultListener("result") { _, bundle ->
             val contact = bundle.getParcelable<Contact>("contact")
             val position = adapter.itemCount
             if (contact != null) {
-                addContact(position,contact)
+                addContact(position, contact)
             }
         }
         viewModel = ViewModelProvider(this).get(ContactsViewModel::class.java)
@@ -69,9 +71,14 @@ class ContactsFragment : Fragment() {
 
 
     private fun processAddContactClick() {
+
         binding.tvAddContact.setOnClickListener {
-            val dialogAddContact = AddContactFragment()
-            dialogAddContact.show(parentFragmentManager, getString(R.string.tv_add_contact))
+            if (FeatureFlags.transactionsEnabled) {
+                val dialogAddContact = AddContactFragment()
+                dialogAddContact.show(parentFragmentManager, getString(R.string.tv_add_contact))
+            } else {
+                view?.findNavController()?.navigate(R.id.addContactFragment)
+            }
         }
     }
 

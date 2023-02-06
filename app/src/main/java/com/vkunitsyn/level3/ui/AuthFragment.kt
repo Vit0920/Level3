@@ -11,9 +11,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.navigation.findNavController
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.FragmentAuthBinding
 import com.vkunitsyn.level3.utils.Constants
+import com.vkunitsyn.level3.utils.FeatureFlags
 import com.vkunitsyn.level3.utils.Parser
 import com.vkunitsyn.level3.utils.Validator
 
@@ -38,8 +40,6 @@ class AuthFragment : Fragment() {
         fillInSavedData()
         controlPasswordInput()
         processRegisterButtonClick()
-
-
     }
 
 
@@ -58,14 +58,19 @@ class AuthFragment : Fragment() {
 
                 processSharedPreferences()
 
-                val profileFragment = ProfileFragment()
-                val bundle = Bundle()
-                bundle.putString(Constants.USER_NAME, Parser.parseEmail(binding.tietEmail.text.toString()))
-                profileFragment.arguments = bundle
-                parentFragmentManager.commit {
-                    setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
-                    replace(R.id.fragment_container, profileFragment)
-                    addToBackStack(null)
+                if (FeatureFlags.transactionsEnabled){
+                    val profileFragment = ProfileFragment()
+                    val bundle = Bundle()
+                    bundle.putString(Constants.USER_NAME, Parser.parseEmail(binding.tietEmail.text.toString()))
+                    profileFragment.arguments = bundle
+                    parentFragmentManager.commit {
+                        setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
+                        replace(R.id.fragment_container, profileFragment)
+                        addToBackStack(null)
+                    }
+                } else {
+                    view?.findNavController()?.navigate(R.id.profileFragment)
+
                 }
             }
         }

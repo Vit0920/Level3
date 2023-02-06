@@ -50,7 +50,6 @@ class GoogleCustomButton @JvmOverloads constructor(
     private fun initPaintText() {
         paintText.isAntiAlias = true
         text = capitalizeText(text)
-        println("$text!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         paintText.apply {
             textSize = textSizeAttrs.toFloat()
             typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)

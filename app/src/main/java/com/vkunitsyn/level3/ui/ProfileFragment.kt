@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.navigation.findNavController
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.FragmentProfileBinding
 import com.vkunitsyn.level3.utils.Constants
+import com.vkunitsyn.level3.utils.FeatureFlags
 
 
 class ProfileFragment : Fragment() {
@@ -29,15 +31,37 @@ class ProfileFragment : Fragment() {
 
         binding.tvName.text = arguments?.getString(Constants.USER_NAME)
         processViewContactsButtonClick()
+        processEditProfileButtonClick()
+    }
+
+    private fun processEditProfileButtonClick() {
+        binding.editProfile.setOnClickListener(){
+
+            if(FeatureFlags.transactionsEnabled){
+                parentFragmentManager.commit {
+                    setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
+                    replace<EditProfileFragment>(R.id.fragment_container)
+                    addToBackStack(null)
+                }
+            } else {
+                view?.findNavController()?.navigate(R.id.editProfileFragment)
+            }
+
+        }
     }
 
     private fun processViewContactsButtonClick() {
         binding.mbViewContacts.setOnClickListener(){
-            parentFragmentManager.commit {
-                setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
-                replace<ContactsFragment>(R.id.fragment_container)
-                addToBackStack(null)
+            if(FeatureFlags.transactionsEnabled){
+                parentFragmentManager.commit {
+                    setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
+                    replace<ContactsFragment>(R.id.fragment_container)
+                    addToBackStack(null)
+                }
+            } else {
+                view?.findNavController()?.navigate(R.id.contactsFragment)
             }
+
         }
     }
 }
