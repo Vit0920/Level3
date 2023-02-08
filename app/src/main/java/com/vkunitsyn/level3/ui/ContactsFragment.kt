@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -77,7 +78,7 @@ class ContactsFragment : Fragment() {
                 val dialogAddContact = AddContactFragment()
                 dialogAddContact.show(parentFragmentManager, getString(R.string.tv_add_contact))
             } else {
-                view?.findNavController()?.navigate(R.id.addContactFragment)
+                findNavController().navigate(R.id.addContactFragment)
             }
         }
     }

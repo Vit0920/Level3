@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.FragmentAuthBinding
 import com.vkunitsyn.level3.utils.Constants
@@ -69,7 +69,7 @@ class AuthFragment : Fragment() {
                         addToBackStack(null)
                     }
                 } else {
-                    view?.findNavController()?.navigate(R.id.profileFragment)
+                    findNavController().navigate(R.id.profileFragment)
 
                 }
             }
