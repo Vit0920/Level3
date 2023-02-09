@@ -99,11 +99,11 @@
                 android:background="@drawable/linked_in_button" />
 
             <ImageButton
-                android:id="@+id/ib_vk"
+                android:id="@+id/ib_instagram"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_normal"
-                android:background="@drawable/vk_button" />
+                android:background="@drawable/instagram_button" />
 
         </LinearLayout>
 

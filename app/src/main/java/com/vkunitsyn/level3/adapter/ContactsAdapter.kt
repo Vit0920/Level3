@@ -7,14 +7,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.ContactModelLayoutBinding
 import com.vkunitsyn.level3.model.Contact
+import com.vkunitsyn.level3.ui.RecyclerViewInterface
 import com.vkunitsyn.level3.utils.addPictureGlide
 
 
-class ContactsAdapter : RecyclerView.Adapter<ContactsAdapter.MyViewHolder>() {
+class ContactsAdapter(listener: RecyclerViewInterface) : RecyclerView.Adapter<ContactsAdapter.MyViewHolder>(), RecyclerViewInterface {
+
+
 
     private lateinit var myRecyclerView: RecyclerView
     var onTrashBinClick: ((Int) -> (Unit))? = null
     private var contactsList = listOf<Contact>()
+    private var itemClickListener: RecyclerViewInterface = listener
 
 
     inner class MyViewHolder(item: View) : RecyclerView.ViewHolder(item) {
@@ -46,6 +50,9 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(contactsList[position])
+        holder.itemView.setOnClickListener(){
+            itemClickListener.onItemClick(position)
+        }
     }
 
     override fun getItemCount(): Int = contactsList.size
@@ -53,6 +60,10 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsAdapter.MyViewHolder>() {
 
     fun refresh(contacts: List<Contact>) {
         contactsList = contacts
+    }
+
+    override fun onItemClick(position: Int) {
+
     }
 
 

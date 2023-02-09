@@ -1,5 +1,6 @@
 package com.vkunitsyn.level3.ui
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
@@ -9,7 +10,6 @@ import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.utils.FeatureFlags
 
 class MainActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

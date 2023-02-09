@@ -1,13 +1,14 @@
 package com.vkunitsyn.level3.ui
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.setFragmentResultListener
-import androidx.navigation.findNavController
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.liveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -18,11 +19,8 @@ import com.vkunitsyn.level3.databinding.FragmentContactsBinding
 import com.vkunitsyn.level3.model.Contact
 import com.vkunitsyn.level3.utils.FeatureFlags
 
-class ContactsFragment : Fragment() {
+class ContactsFragment : Fragment(), RecyclerViewInterface {
 
-    companion object {
-        fun newInstance() = ContactsFragment()
-    }
 
     private lateinit var viewModel: ContactsViewModel
     private lateinit var binding: FragmentContactsBinding
@@ -52,7 +50,12 @@ class ContactsFragment : Fragment() {
         adapter.onTrashBinClick = { position -> deleteContact(position) }
         processBackArrowClick()
         processAddContactClick()
+        processContactCardClick()
         enableSwipeToDelete()
+    }
+
+    private fun processContactCardClick() {
+
     }
 
 
@@ -91,7 +94,7 @@ class ContactsFragment : Fragment() {
 
 
     private fun initAdapter() {
-        adapter = ContactsAdapter()
+        adapter = ContactsAdapter(this)
         binding.rvContacts.adapter = adapter
     }
 
@@ -121,4 +124,20 @@ class ContactsFragment : Fragment() {
         }.show()
     }
 
+    override fun onItemClick(position: Int) {
+        val contact = viewModel.get(position)
+        val bundle = Bundle()
+        bundle.putParcelable("contact", contact)
+        if(FeatureFlags.transactionsEnabled){
+            val contactsProfileFragment = ContactsProfileFragment()
+            contactsProfileFragment.arguments = bundle
+            parentFragmentManager.commit {
+                setCustomAnimations(R.anim.fade_in,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
+                replace(R.id.fragment_container, contactsProfileFragment)
+                addToBackStack(null)
+            }
+        }else{
+            findNavController().navigate(R.id.contactsProfileFragment, bundle)
+        }
+    }
 }

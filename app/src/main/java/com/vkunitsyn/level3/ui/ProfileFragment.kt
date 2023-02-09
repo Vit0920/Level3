@@ -55,7 +55,7 @@ class ProfileFragment : Fragment() {
         binding.mbViewContacts.setOnClickListener(){
             if(FeatureFlags.transactionsEnabled){
                 parentFragmentManager.commit {
-                    setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
+                    setCustomAnimations(R.anim.fade_in,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
                     replace<ContactsFragment>(R.id.fragment_container)
                     addToBackStack(null)
                 }

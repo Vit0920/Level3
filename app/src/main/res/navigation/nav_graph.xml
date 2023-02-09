@@ -25,6 +25,12 @@
             android:id="@+id/action_profileFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/contactsProfileFragment"
+        android:name="com.vkunitsyn.level3.ui.ContactsProfileFragment"
+        android:label="ContactsProfileFragment" />
+
     <fragment
         android:id="@+id/contactsFragment"
         android:name="com.vkunitsyn.level3.ui.ContactsFragment"
@@ -32,6 +38,9 @@
         <action
             android:id="@+id/action_contactsFragment_to_addContactFragment"
             app:destination="@id/addContactFragment" />
+        <action
+            android:id="@+id/action_contactsFragment_to_contactsProfileFragment"
+            app:destination="@id/contactsProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -41,4 +50,5 @@
         android:id="@+id/addContactFragment"
         android:name="com.vkunitsyn.level3.ui.AddContactFragment"
         android:label="AddContactFragment" />
+
 </navigation>

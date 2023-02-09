@@ -57,20 +57,19 @@ class AuthFragment : Fragment() {
             if (noInputErrors()) {
 
                 processSharedPreferences()
+                val bundle = Bundle()
+                bundle.putString(Constants.USER_NAME, Parser.parseEmail(binding.tietEmail.text.toString()))
 
                 if (FeatureFlags.transactionsEnabled){
                     val profileFragment = ProfileFragment()
-                    val bundle = Bundle()
-                    bundle.putString(Constants.USER_NAME, Parser.parseEmail(binding.tietEmail.text.toString()))
                     profileFragment.arguments = bundle
                     parentFragmentManager.commit {
-                        setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
+                        setCustomAnimations(R.anim.fade_in,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
                         replace(R.id.fragment_container, profileFragment)
                         addToBackStack(null)
                     }
                 } else {
-                    findNavController().navigate(R.id.profileFragment)
-
+                    findNavController().navigate(R.id.profileFragment,bundle)
                 }
             }
         }
