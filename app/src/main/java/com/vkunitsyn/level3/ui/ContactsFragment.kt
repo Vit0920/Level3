@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -50,14 +51,8 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
         adapter.onTrashBinClick = { position -> deleteContact(position) }
         processBackArrowClick()
         processAddContactClick()
-        processContactCardClick()
         enableSwipeToDelete()
     }
-
-    private fun processContactCardClick() {
-
-    }
-
 
     private fun enableSwipeToDelete() {
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -88,7 +83,11 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
 
     private fun processBackArrowClick() {
         binding.ibArrowBack.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            if (FeatureFlags.transactionsEnabled) {
+                parentFragmentManager.popBackStack()
+            } else {
+                findNavController().popBackStack()
+            }
         }
     }
 
@@ -124,20 +123,34 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
         }.show()
     }
 
-    override fun onItemClick(position: Int) {
+    override fun onItemClick(imageView: ImageView, position: Int) {
         val contact = viewModel.get(position)
         val bundle = Bundle()
         bundle.putParcelable("contact", contact)
-        if(FeatureFlags.transactionsEnabled){
+        imageView.transitionName = contact?.id.toString()
+        if (FeatureFlags.transactionsEnabled) {
             val contactsProfileFragment = ContactsProfileFragment()
             contactsProfileFragment.arguments = bundle
             parentFragmentManager.commit {
-                setCustomAnimations(R.anim.fade_in,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
+                setCustomAnimations(
+                    R.anim.fade_in,
+                    R.anim.fade_out,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                setReorderingAllowed(true)
+                addSharedElement(imageView, "contact_picture")
                 replace(R.id.fragment_container, contactsProfileFragment)
                 addToBackStack(null)
             }
-        }else{
-            findNavController().navigate(R.id.contactsProfileFragment, bundle)
+        } else {
+            val extras = FragmentNavigatorExtras(imageView to "contact_picture")
+            findNavController().navigate(
+                R.id.action_contactsFragment_to_contactsProfileFragment,
+                bundle,
+                null,
+                extras
+            )
         }
     }
 }

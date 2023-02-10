@@ -1,8 +1,8 @@
 package com.vkunitsyn.level3.adapter
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.ContactModelLayoutBinding
@@ -11,7 +11,8 @@ import com.vkunitsyn.level3.ui.RecyclerViewInterface
 import com.vkunitsyn.level3.utils.addPictureGlide
 
 
-class ContactsAdapter(listener: RecyclerViewInterface) : RecyclerView.Adapter<ContactsAdapter.MyViewHolder>(), RecyclerViewInterface {
+class ContactsAdapter(listener: RecyclerViewInterface) : RecyclerView.Adapter<ContactsAdapter.MyViewHolder>(),
+    RecyclerViewInterface {
 
 
 
@@ -32,7 +33,9 @@ class ContactsAdapter(listener: RecyclerViewInterface) : RecyclerView.Adapter<Co
                 ivModelProfilePicture.addPictureGlide(contact.picture)
             }
             btnDelete.setOnClickListener {
-                onTrashBinClick?.invoke(adapterPosition)
+                //if I use "adapterPosition" instead of "layoutPosition"
+                //I get the position shift after a contact deletion
+                onTrashBinClick?.invoke(layoutPosition)
             }
         }
     }
@@ -50,8 +53,10 @@ class ContactsAdapter(listener: RecyclerViewInterface) : RecyclerView.Adapter<Co
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(contactsList[position])
-        holder.itemView.setOnClickListener(){
-            itemClickListener.onItemClick(position)
+        holder.itemView.setOnClickListener{
+            //if I use "position" instead of "layoutPosition"
+            //I get the position shift after a contact deletion
+            itemClickListener.onItemClick(holder.binding.ivModelProfilePicture, holder.layoutPosition)
         }
     }
 
@@ -62,9 +67,8 @@ class ContactsAdapter(listener: RecyclerViewInterface) : RecyclerView.Adapter<Co
         contactsList = contacts
     }
 
-    override fun onItemClick(position: Int) {
+
+    override fun onItemClick(imageView: ImageView, position: Int) {
 
     }
-
-
 }

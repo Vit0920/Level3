@@ -1,5 +1,7 @@
 package com.vkunitsyn.level3.ui
 
+import android.widget.ImageView
+
 interface RecyclerViewInterface {
-    fun onItemClick(position: Int)
+    fun onItemClick(imageView: ImageView, position: Int)
 }

@@ -46,5 +46,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="tv_profile">Profile</string>
     <string name="mb_message">MESSAGE</string>
+    <string name="tn_shared_contact_image">sharedContactImage</string>
 
 </resources>

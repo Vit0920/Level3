@@ -18,6 +18,7 @@ import com.vkunitsyn.level3.model.Contact
 import com.vkunitsyn.level3.utils.Constants
 import com.vkunitsyn.level3.utils.addPictureGlide
 import java.io.File
+import java.util.UUID
 
 
 class AddContactFragment : DialogFragment() {
@@ -35,16 +36,14 @@ class AddContactFragment : DialogFragment() {
         dialog?.window?.setWindowAnimations(R.style.dialog_animation_fade)
         binding = FragmentAddContactBinding.inflate(inflater)
         return binding.root
-
     }
-
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog?.window?.setWindowAnimations(
-            R.style.dialog_animation_fade)
+            R.style.dialog_animation_fade
+        )
         binding.ivNewContactPicture.addPictureGlide(R.drawable.default_profile_picture)
         processSaveButtonClick()
         processBackArrowClick()
@@ -61,7 +60,7 @@ class AddContactFragment : DialogFragment() {
 
         chooseImage = registerForActivityResult(ActivityResultContracts.GetContent())
         { result ->
-            if (result != null){
+            if (result != null) {
                 binding.ivNewContactPicture.addPictureGlide(result)
                 imageFileUri = result
             }
@@ -105,7 +104,6 @@ class AddContactFragment : DialogFragment() {
         binding.mbSaveAddContact.setOnClickListener {
             val result: Contact = createNewContact()
             setFragmentResult("result", bundleOf("contact" to result))
-
             dismiss()
         }
     }
@@ -116,7 +114,8 @@ class AddContactFragment : DialogFragment() {
             if (imageFileUri != null) {
                 picture = imageFileUri.toString()
             }
-            with(binding){
+            with(binding) {
+                id = UUID.randomUUID().toString()
                 name = tietUserNameAddContact.text.toString()
                 career = tietCareerAddContact.text.toString()
                 phone = tietPhoneAddContact.text.toString()

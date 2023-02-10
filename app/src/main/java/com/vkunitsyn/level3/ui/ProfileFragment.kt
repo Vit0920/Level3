@@ -36,31 +36,36 @@ class ProfileFragment : Fragment() {
     }
 
     private fun processEditProfileButtonClick() {
-        binding.editProfile.setOnClickListener(){
+        binding.editProfile.setOnClickListener() {
 
-            if(FeatureFlags.transactionsEnabled){
+            if (FeatureFlags.transactionsEnabled) {
                 parentFragmentManager.commit {
-                    setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
+                    setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                     replace<EditProfileFragment>(R.id.fragment_container)
                     addToBackStack(null)
                 }
             } else {
-                findNavController().navigate(R.id.editProfileFragment)
+                findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
             }
 
         }
     }
 
     private fun processViewContactsButtonClick() {
-        binding.mbViewContacts.setOnClickListener(){
-            if(FeatureFlags.transactionsEnabled){
+        binding.mbViewContacts.setOnClickListener() {
+            if (FeatureFlags.transactionsEnabled) {
                 parentFragmentManager.commit {
-                    setCustomAnimations(R.anim.fade_in,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
+                    setCustomAnimations(
+                        R.anim.fade_in,
+                        R.anim.fade_out,
+                        R.anim.fade_in,
+                        R.anim.fade_out
+                    )
                     replace<ContactsFragment>(R.id.fragment_container)
                     addToBackStack(null)
                 }
             } else {
-                findNavController().navigate(R.id.contactsFragment)
+                findNavController().navigate(R.id.action_profileFragment_to_contactsFragment)
             }
 
         }

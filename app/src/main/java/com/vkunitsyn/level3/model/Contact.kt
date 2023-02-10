@@ -5,6 +5,7 @@ import android.os.Parcelable
 
 
 class Contact(
+    var id: String? = "",
     var picture: String? = "",
     var name: String? = "",
     var career: String? = "",
@@ -18,11 +19,13 @@ class Contact(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readString(),
         parcel.readString()
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
         parcel.writeString(picture)
         parcel.writeString(name)
         parcel.writeString(career)
@@ -45,5 +48,3 @@ class Contact(
         }
     }
 }
-
-

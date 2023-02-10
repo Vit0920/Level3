@@ -1,42 +1,38 @@
 package com.vkunitsyn.level3.utils
 
 import com.vkunitsyn.level3.model.Contact
+import java.util.UUID
 
 object ContactsData {
 
    fun getData() = arrayListOf<Contact>(
-       Contact(
-           "https://avatarko.ru/img/kartinka/2/zhivotnye_kot_sobaka_prikol_1764.jpg",
+       Contact(UUID.randomUUID().toString(),
+           "https://avas.at.ua/_ph/48/2/349087186.gif?1676009870/_ph/48/2/349087186.gif?1676009870",
            "Vasya", "Doctor","","",""
        ),
-       Contact(
-           "https://avatarko.ru/img/kartinka/33/kapyushon_robot_34631.jpg",
-           "Petya", "Teacher","","",""
+       Contact(UUID.randomUUID().toString(),
+           "https://avas.at.ua/_ph/15/2/454969051.jpg?1676009676",
+           "Lisa", "Teacher","","",""
        ),
-       Contact(
+       Contact(UUID.randomUUID().toString(),
+           "https://avas.at.ua/_ph/48/2/582562437.gif?1676009878",
+           "Sasha", "Designer","","",""
+       ),
+       Contact(UUID.randomUUID().toString(),
+           "https://avas.at.ua/_ph/48/2/8570991.jpg?1676009884",
+           "Kolya", "Cook","","",""
+       ),
+       Contact(UUID.randomUUID().toString(),
+           "https://avas.at.ua/_ph/48/2/396391173.gif?1676010474",
+           "Petya", "Clown","","",""
+       ),
+       Contact(UUID.randomUUID().toString(),
            "https://avatarko.ru/img/kartinka/11/multfilm_robot_10393.jpg",
-           "Anna", "Designer","","",""
+           "Anna", "Housewife","","",""
        ),
-       Contact(
-           "https://avatarko.ru/img/kartinka/18/devushka_robot_17109.jpg",
-           "Lisa", "Cook","","",""
-       ),
-       Contact(
+       Contact(UUID.randomUUID().toString(),
            "https://avatarko.ru/img/kartinka/33/kapyushon_robot_34631.jpg",
-           "Petya", "Teacher","","",""
+           "Alex", "Pilot","","",""
        ),
-       Contact(
-           "https://avatarko.ru/img/kartinka/11/multfilm_robot_10393.jpg",
-           "Anna", "Designer","","",""
-       ),
-       Contact(
-           "https://avatarko.ru/img/kartinka/33/kapyushon_robot_34631.jpg",
-           "Petya", "Teacher","","",""
-       ),
-       Contact(
-           "https://avatarko.ru/img/kartinka/11/multfilm_robot_10393.jpg",
-           "Anna", "Designer","","",""
-       )
-
    )
 }

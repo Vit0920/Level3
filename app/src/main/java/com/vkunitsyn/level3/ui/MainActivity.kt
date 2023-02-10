@@ -1,6 +1,5 @@
 package com.vkunitsyn.level3.ui
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add

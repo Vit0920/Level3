@@ -5,13 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.vkunitsyn.level3.databinding.FragmentEditProfileBinding
+import com.vkunitsyn.level3.utils.FeatureFlags
 
 class EditProfileFragment : Fragment() {
     lateinit var binding: FragmentEditProfileBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentEditProfileBinding.inflate(inflater)
         return binding.root
     }
@@ -28,8 +32,12 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun processBackButtonClick() {
-        binding.ibArrowBackEditProfile.setOnClickListener(){
-            parentFragmentManager.popBackStack()
+        binding.ibArrowBackEditProfile.setOnClickListener() {
+            if (FeatureFlags.transactionsEnabled) {
+                parentFragmentManager.popBackStack()
+            } else {
+                findNavController().popBackStack()
+            }
         }
     }
 }
