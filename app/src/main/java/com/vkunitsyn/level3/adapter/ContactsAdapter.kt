@@ -1,4 +1,5 @@
 package com.vkunitsyn.level3.adapter
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,9 @@ import com.vkunitsyn.level3.ui.RecyclerViewInterface
 import com.vkunitsyn.level3.utils.addPictureGlide
 
 
-class ContactsAdapter(listener: RecyclerViewInterface) : RecyclerView.Adapter<ContactsAdapter.MyViewHolder>(),
+class ContactsAdapter(listener: RecyclerViewInterface) :
+    RecyclerView.Adapter<ContactsAdapter.MyViewHolder>(),
     RecyclerViewInterface {
-
 
 
     private lateinit var myRecyclerView: RecyclerView
@@ -27,11 +28,7 @@ class ContactsAdapter(listener: RecyclerViewInterface) : RecyclerView.Adapter<Co
         fun bind(contact: Contact) = binding.apply {
             tvModelUserName.text = contact.name
             tvUserModelCareer.text = contact.career
-            if (contact.picture?.isEmpty() == true) {
-                ivModelProfilePicture.addPictureGlide(R.drawable.default_profile_picture)
-            } else {
-                ivModelProfilePicture.addPictureGlide(contact.picture)
-            }
+            ivModelProfilePicture.addPictureGlide(contact.picture)
             ivModelProfilePicture.transitionName = contact.id.toString()
             btnDelete.setOnClickListener {
                 //if I use "adapterPosition" instead of "layoutPosition"
@@ -54,10 +51,13 @@ class ContactsAdapter(listener: RecyclerViewInterface) : RecyclerView.Adapter<Co
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(contactsList[position])
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
             //if I use "position" instead of "layoutPosition"
             //I get the position shift after a contact deletion
-            itemClickListener.onItemClick(holder.binding.ivModelProfilePicture, holder.layoutPosition)
+            itemClickListener.onItemClick(
+                holder.binding.ivModelProfilePicture,
+                holder.layoutPosition
+            )
         }
     }
 
@@ -70,6 +70,5 @@ class ContactsAdapter(listener: RecyclerViewInterface) : RecyclerView.Adapter<Co
 
 
     override fun onItemClick(imageView: ImageView, position: Int) {
-
     }
 }

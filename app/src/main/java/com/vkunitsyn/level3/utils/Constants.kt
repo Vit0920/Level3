@@ -13,6 +13,7 @@ object Constants {
     const val IMAGE_FORMAT = "jpg"
     const val AUTHORITIES = "com.vkunitsyn.level3.fileprovider"
     const val SHARED_ELEMENT_RECEIVER = "contact_picture"
+    const val RESOURCES_PATH = "android.resource://com.vkunitsyn.level3/"
 
 
     const val PADDING_X = 15F
