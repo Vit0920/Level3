@@ -32,6 +32,7 @@ class ContactsAdapter(listener: RecyclerViewInterface) : RecyclerView.Adapter<Co
             } else {
                 ivModelProfilePicture.addPictureGlide(contact.picture)
             }
+            ivModelProfilePicture.transitionName = contact.id.toString()
             btnDelete.setOnClickListener {
                 //if I use "adapterPosition" instead of "layoutPosition"
                 //I get the position shift after a contact deletion

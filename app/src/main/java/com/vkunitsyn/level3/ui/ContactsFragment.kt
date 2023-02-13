@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.setFragmentResultListener
@@ -25,7 +26,7 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
 
     private lateinit var viewModel: ContactsViewModel
     private lateinit var binding: FragmentContactsBinding
-    lateinit var adapter: ContactsAdapter
+    private lateinit var adapter: ContactsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +39,7 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
 
     override fun onViewCreated(View: View, savedInstanceState: Bundle?) {
         super.onViewCreated(View, savedInstanceState)
+        postponeEnterTransition()
         setFragmentResultListener("result") { _, bundle ->
             val contact = bundle.getParcelable<Contact>("contact")
             val position = adapter.itemCount
@@ -45,9 +47,14 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
                 addContact(position, contact)
             }
         }
-        viewModel = ViewModelProvider(this).get(ContactsViewModel::class.java)
-        viewModel.contactsList.observe(viewLifecycleOwner) { adapter.refresh(it) }
+        viewModel = ViewModelProvider(this)[ContactsViewModel::class.java]
         initAdapter()
+        viewModel.contactsList.observe(viewLifecycleOwner) {
+            adapter.refresh(it)
+            (view?.parent as? ViewGroup)?.doOnPreDraw {
+                startPostponedEnterTransition()
+            }
+        }
         adapter.onTrashBinClick = { position -> deleteContact(position) }
         processBackArrowClick()
         processAddContactClick()
@@ -127,7 +134,6 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
         val contact = viewModel.get(position)
         val bundle = Bundle()
         bundle.putParcelable("contact", contact)
-        imageView.transitionName = contact?.id.toString()
         if (FeatureFlags.transactionsEnabled) {
             val contactsProfileFragment = ContactsProfileFragment()
             contactsProfileFragment.arguments = bundle
