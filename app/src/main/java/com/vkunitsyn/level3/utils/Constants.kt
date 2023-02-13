@@ -12,6 +12,7 @@ object Constants {
     const val NEW_CONTACT_PROFILE_PICTURE_FILE_NAME = "new_contact"
     const val IMAGE_FORMAT = "jpg"
     const val AUTHORITIES = "com.vkunitsyn.level3.fileprovider"
+    const val SHARED_ELEMENT_RECEIVER = "contact_picture"
 
 
     const val PADDING_X = 15F

@@ -19,6 +19,7 @@ import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.adapter.ContactsAdapter
 import com.vkunitsyn.level3.databinding.FragmentContactsBinding
 import com.vkunitsyn.level3.model.Contact
+import com.vkunitsyn.level3.utils.Constants
 import com.vkunitsyn.level3.utils.FeatureFlags
 
 class ContactsFragment : Fragment(), RecyclerViewInterface {
@@ -145,12 +146,12 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
                     R.anim.fade_out
                 )
                 setReorderingAllowed(true)
-                addSharedElement(imageView, "contact_picture")
+                addSharedElement(imageView, Constants.SHARED_ELEMENT_RECEIVER)
                 replace(R.id.fragment_container, contactsProfileFragment)
                 addToBackStack(null)
             }
         } else {
-            val extras = FragmentNavigatorExtras(imageView to "contact_picture")
+            val extras = FragmentNavigatorExtras(imageView to Constants.SHARED_ELEMENT_RECEIVER)
             findNavController().navigate(
                 R.id.action_contactsFragment_to_contactsProfileFragment,
                 bundle,

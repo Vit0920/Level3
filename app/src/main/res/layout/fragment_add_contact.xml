@@ -50,7 +50,7 @@
         android:layout_height="0dp"
         app:layout_constraintVertical_weight="1"
         android:background="?attr/colorOnPrimary"
-        android:layout_marginTop="@dimen/margin_large"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/name"
                 app:expandedHintEnabled="false"
-                app:helperTextTextColor="?attr/colorOnSecondary"
+                android:textColorHint="?attr/colorOnSecondary"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -78,7 +78,7 @@
                     android:backgroundTint="@android:color/transparent"
                     android:inputType="textPersonName"
                     android:singleLine="true"
-                    android:textColor="?attr/colorSecondaryVariant"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="@dimen/text_large" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,6 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/career"
+                android:textColorHint="?attr/colorOnSecondary"
                 app:expandedHintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -96,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
                     android:singleLine="true"
-                    android:textColor="?attr/colorSecondaryVariant"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="@dimen/text_large" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,6 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
+                android:textColorHint="?attr/colorOnSecondary"
                 app:expandedHintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -114,7 +116,7 @@
                     android:backgroundTint="@android:color/transparent"
                     android:inputType="textPersonName"
                     android:singleLine="true"
-                    android:textColor="?attr/colorSecondaryVariant"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="@dimen/text_large" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -123,6 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/phone"
+                android:textColorHint="?attr/colorOnSecondary"
                 app:expandedHintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -132,7 +135,7 @@
                     android:backgroundTint="@android:color/transparent"
                     android:inputType="textPersonName"
                     android:singleLine="true"
-                    android:textColor="?attr/colorSecondaryVariant"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="@dimen/text_large" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,6 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/address"
+                android:textColorHint="?attr/colorOnSecondary"
                 app:expandedHintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -150,7 +154,7 @@
                     android:backgroundTint="@android:color/transparent"
                     android:inputType="textPersonName"
                     android:singleLine="true"
-                    android:textColor="?attr/colorSecondaryVariant"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="@dimen/text_large" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/date_of_birth"
                 app:expandedHintEnabled="false"
-                app:layout_constraintStart_toStartOf="parent">
+                android:textColorHint="?attr/colorOnSecondary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_birthday_addContact"
@@ -169,7 +173,7 @@
                     android:backgroundTint="@android:color/transparent"
                     android:inputType="textPersonName"
                     android:singleLine="true"
-                    android:textColor="?attr/colorSecondaryVariant"
+                    android:textColor="?attr/colorPrimaryVariant"
                     android:textSize="@dimen/text_large" />
             </com.google.android.material.textfield.TextInputLayout>
 
