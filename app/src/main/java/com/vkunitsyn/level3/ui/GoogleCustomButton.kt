@@ -17,9 +17,7 @@ import com.vkunitsyn.level3.utils.dpToPx
 
 
 class GoogleCustomButton @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
 
@@ -81,34 +79,28 @@ class GoogleCustomButton @JvmOverloads constructor(
         }
     }
 
-
     private fun initAttributes(attrs: AttributeSet?) {
         val typedArray = context.theme.obtainStyledAttributes(
             attrs, R.styleable.GoogleCustomButton, 0, 0
         )
         text = typedArray.getString(R.styleable.GoogleCustomButton_text) ?: DEFAULT_TEXT
         textSizeAttrs = typedArray.getDimensionPixelSize(
-            R.styleable.GoogleCustomButton_textSize,
-            DEFAULT_TEXT_SIZE
+            R.styleable.GoogleCustomButton_textSize, DEFAULT_TEXT_SIZE
         )
         textGoogleColor = typedArray.getColor(R.styleable.GoogleCustomButton_textColor, Color.BLACK)
         buttonColor =
             typedArray.getColor(R.styleable.GoogleCustomButton_backgroundTint, Color.WHITE)
         paddingHorizontal = typedArray.getDimension(
-            R.styleable.GoogleCustomButton_paddingHorizontal,
-            context.dpToPx(PADDING_X)
+            R.styleable.GoogleCustomButton_paddingHorizontal, context.dpToPx(PADDING_X)
         )
         paddingVertical = typedArray.getDimension(
-            R.styleable.GoogleCustomButton_paddingVertical,
-            context.dpToPx(PADDING_Y)
+            R.styleable.GoogleCustomButton_paddingVertical, context.dpToPx(PADDING_Y)
         )
         googleLogoSize = typedArray.getDimension(
-            R.styleable.GoogleCustomButton_logoSize,
-            context.dpToPx(DEFAULT_GOOGLE_LOGO_SIZE)
+            R.styleable.GoogleCustomButton_logoSize, context.dpToPx(DEFAULT_GOOGLE_LOGO_SIZE)
         )
         logoTextMargin = typedArray.getDimension(
-            R.styleable.GoogleCustomButton_logoTextMargin,
-            context.dpToPx(LOGO_TEXT_MARGIN)
+            R.styleable.GoogleCustomButton_logoTextMargin, context.dpToPx(LOGO_TEXT_MARGIN)
         )
 
         textAllCaps = typedArray.getBoolean(R.styleable.GoogleCustomButton_textAllCaps, true)

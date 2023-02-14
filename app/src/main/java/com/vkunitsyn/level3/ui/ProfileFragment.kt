@@ -20,8 +20,7 @@ class ProfileFragment : Fragment() {
     private val args: ProfileFragmentArgs by navArgs()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         binding = FragmentProfileBinding.inflate(inflater)
@@ -30,10 +29,10 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvName.text = if (FeatureFlags.transactionsEnabled){
-             arguments?.getString(Constants.USER_NAME)
-        }else{
-             args.userName
+        binding.tvName.text = if (FeatureFlags.transactionsEnabled) {
+            arguments?.getString(Constants.USER_NAME)
+        } else {
+            args.userName
         }
 
         processViewContactsButtonClick()
@@ -61,10 +60,7 @@ class ProfileFragment : Fragment() {
             if (FeatureFlags.transactionsEnabled) {
                 parentFragmentManager.commit {
                     setCustomAnimations(
-                        R.anim.fade_in,
-                        R.anim.fade_out,
-                        R.anim.fade_in,
-                        R.anim.fade_out
+                        R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out
                     )
                     replace<ContactsFragment>(R.id.fragment_container)
                     addToBackStack(null)

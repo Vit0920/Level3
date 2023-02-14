@@ -13,8 +13,7 @@ class EditProfileFragment : Fragment() {
     lateinit var binding: FragmentEditProfileBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentEditProfileBinding.inflate(inflater)
         return binding.root

@@ -18,13 +18,11 @@ class ContactsProfileFragment : Fragment() {
     private val args: ContactsProfileFragmentArgs by navArgs()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentContactsProfileBinding.inflate(inflater)
         val transition = context?.let {
-            TransitionInflater.from(it)
-                .inflateTransition(android.R.transition.move)
+            TransitionInflater.from(it).inflateTransition(android.R.transition.move)
         }
         sharedElementEnterTransition = transition
         sharedElementReturnTransition = transition
@@ -33,9 +31,9 @@ class ContactsProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val contact = if(FeatureFlags.transactionsEnabled){
+        val contact = if (FeatureFlags.transactionsEnabled) {
             arguments?.getParcelable<Contact>("contact")
-        }else{
+        } else {
             args.contact
         }
         binding.apply {

@@ -30,8 +30,7 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
     private lateinit var adapter: ContactsAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentContactsBinding.inflate(inflater)
         return binding.root
@@ -41,8 +40,8 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
     override fun onViewCreated(View: View, savedInstanceState: Bundle?) {
         super.onViewCreated(View, savedInstanceState)
         postponeEnterTransition()
-        setFragmentResultListener("result") { _, bundle ->
-            val contact = bundle.getParcelable<Contact>("contact")
+        setFragmentResultListener(Constants.ADD_CONTACT_FRAGMENT_RESULT) { _, bundle ->
+            val contact = bundle.getParcelable<Contact>(Constants.ADDED_CONTACT)
             val position = adapter.itemCount
             if (contact != null) {
                 addContact(position, contact)
@@ -65,9 +64,7 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
     private fun enableSwipeToDelete() {
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             override fun onMove(
-                v: RecyclerView,
-                h: RecyclerView.ViewHolder,
-                t: RecyclerView.ViewHolder
+                v: RecyclerView, h: RecyclerView.ViewHolder, t: RecyclerView.ViewHolder
             ) = false
 
             override fun onSwiped(h: RecyclerView.ViewHolder, dir: Int) {
@@ -82,7 +79,7 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
         binding.tvAddContact.setOnClickListener {
             if (FeatureFlags.transactionsEnabled) {
                 val dialogAddContact = AddContactFragment()
-                dialogAddContact.show(parentFragmentManager, getString(R.string.tv_add_contact))
+                dialogAddContact.show(parentFragmentManager, Constants.ADD_CONTACT_FRAGMENT_TAG)
             } else {
                 findNavController().navigate(R.id.addContactFragment)
             }
@@ -140,10 +137,7 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
             contactsProfileFragment.arguments = bundle
             parentFragmentManager.commit {
                 setCustomAnimations(
-                    R.anim.fade_in,
-                    R.anim.fade_out,
-                    R.anim.fade_in,
-                    R.anim.fade_out
+                    R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out
                 )
                 setReorderingAllowed(true)
                 addSharedElement(imageView, Constants.SHARED_ELEMENT_RECEIVER)
@@ -152,8 +146,9 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
             }
         } else {
             val extras = FragmentNavigatorExtras(imageView to Constants.SHARED_ELEMENT_RECEIVER)
-            val action = ContactsFragmentDirections.actionContactsFragmentToContactsProfileFragment(contact!!)
-            findNavController().navigate(action,extras)
+            val action =
+                ContactsFragmentDirections.actionContactsFragmentToContactsProfileFragment(contact!!)
+            findNavController().navigate(action, extras)
         }
     }
 }

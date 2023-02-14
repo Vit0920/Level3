@@ -14,6 +14,9 @@ object Constants {
     const val AUTHORITIES = "com.vkunitsyn.level3.fileprovider"
     const val SHARED_ELEMENT_RECEIVER = "contact_picture"
     const val RESOURCES_PATH = "android.resource://com.vkunitsyn.level3/"
+    const val ADD_CONTACT_FRAGMENT_RESULT = "result"
+    const val ADDED_CONTACT = "added contact"
+    const val ADD_CONTACT_FRAGMENT_TAG = "add contact fragment"
 
 
     const val PADDING_X = 15F

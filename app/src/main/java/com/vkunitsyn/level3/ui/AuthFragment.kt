@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.FragmentAuthBinding
@@ -26,8 +25,7 @@ class AuthFragment : Fragment() {
     private lateinit var prefs: SharedPreferences
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         binding = FragmentAuthBinding.inflate(inflater)
@@ -60,8 +58,7 @@ class AuthFragment : Fragment() {
                 processSharedPreferences()
                 val bundle = Bundle()
                 bundle.putString(
-                    Constants.USER_NAME,
-                    Parser.parseEmail(binding.tietEmail.text.toString())
+                    Constants.USER_NAME, Parser.parseEmail(binding.tietEmail.text.toString())
                 )
 
                 if (FeatureFlags.transactionsEnabled) {
@@ -69,17 +66,15 @@ class AuthFragment : Fragment() {
                     profileFragment.arguments = bundle
                     parentFragmentManager.commit {
                         setCustomAnimations(
-                            R.anim.fade_in,
-                            R.anim.fade_out,
-                            R.anim.fade_in,
-                            R.anim.fade_out
+                            R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out
                         )
                         replace(R.id.fragment_container, profileFragment)
                         addToBackStack(null)
                     }
                 } else {
                     val userName = Parser.parseEmail(binding.tietEmail.text.toString())
-                    val action = AuthFragmentDirections.actionAuthFragmentToProfileFragment(userName)
+                    val action =
+                        AuthFragmentDirections.actionAuthFragmentToProfileFragment(userName)
                     findNavController().navigate(action)
                 }
             }

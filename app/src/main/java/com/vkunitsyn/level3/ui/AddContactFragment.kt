@@ -29,9 +29,7 @@ class AddContactFragment : DialogFragment() {
     private var imageFileUri: Uri? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         dialog?.window?.setWindowAnimations(R.style.dialog_animation_fade)
         binding = FragmentAddContactBinding.inflate(inflater)
@@ -49,8 +47,7 @@ class AddContactFragment : DialogFragment() {
         processBackArrowClick()
         processProfilePictureClick()
 
-        getPhoto = registerForActivityResult(ActivityResultContracts.TakePicture())
-        { result ->
+        getPhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) { result ->
             if (result) {
                 binding.ivNewContactPicture.addPictureGlide(imageFileUri!!)
             } else {
@@ -58,8 +55,7 @@ class AddContactFragment : DialogFragment() {
             }
         }
 
-        chooseImage = registerForActivityResult(ActivityResultContracts.GetContent())
-        { result ->
+        chooseImage = registerForActivityResult(ActivityResultContracts.GetContent()) { result ->
             if (result != null) {
                 binding.ivNewContactPicture.addPictureGlide(result)
                 imageFileUri = result
@@ -87,9 +83,7 @@ class AddContactFragment : DialogFragment() {
     private fun createImageFile(): File {
         val imagePath = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
-            Constants.NEW_CONTACT_PROFILE_PICTURE_FILE_NAME,
-            Constants.IMAGE_FORMAT,
-            imagePath
+            Constants.NEW_CONTACT_PROFILE_PICTURE_FILE_NAME, Constants.IMAGE_FORMAT, imagePath
         )
     }
 
@@ -103,7 +97,9 @@ class AddContactFragment : DialogFragment() {
 
         binding.mbSaveAddContact.setOnClickListener {
             val result: Contact = createNewContact()
-            setFragmentResult("result", bundleOf("contact" to result))
+            setFragmentResult(
+                Constants.ADD_CONTACT_FRAGMENT_RESULT, bundleOf(Constants.ADDED_CONTACT to result)
+            )
             dismiss()
         }
     }
