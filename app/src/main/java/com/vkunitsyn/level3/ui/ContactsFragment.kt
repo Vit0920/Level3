@@ -152,12 +152,8 @@ class ContactsFragment : Fragment(), RecyclerViewInterface {
             }
         } else {
             val extras = FragmentNavigatorExtras(imageView to Constants.SHARED_ELEMENT_RECEIVER)
-            findNavController().navigate(
-                R.id.action_contactsFragment_to_contactsProfileFragment,
-                bundle,
-                null,
-                extras
-            )
+            val action = ContactsFragmentDirections.actionContactsFragmentToContactsProfileFragment(contact!!)
+            findNavController().navigate(action,extras)
         }
     }
 }

@@ -111,11 +111,11 @@ class AddContactFragment : DialogFragment() {
     private fun createNewContact(): Contact {
         val newContact = Contact()
         with(newContact) {
-            if (imageFileUri != null) {
-                picture = imageFileUri.toString()
+            picture = if (imageFileUri != null) {
+                imageFileUri.toString()
             } else {
                 val drawableId = R.drawable.default_profile_picture
-                picture = Constants.RESOURCES_PATH + drawableId
+                Constants.RESOURCES_PATH + drawableId
             }
             with(binding) {
                 id = UUID.randomUUID().toString()

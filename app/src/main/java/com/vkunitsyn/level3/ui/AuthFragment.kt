@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.FragmentAuthBinding
@@ -77,7 +78,9 @@ class AuthFragment : Fragment() {
                         addToBackStack(null)
                     }
                 } else {
-                    findNavController().navigate(R.id.action_authFragment_to_profileFragment, bundle)
+                    val userName = Parser.parseEmail(binding.tietEmail.text.toString())
+                    val action = AuthFragmentDirections.actionAuthFragmentToProfileFragment(userName)
+                    findNavController().navigate(action)
                 }
             }
         }

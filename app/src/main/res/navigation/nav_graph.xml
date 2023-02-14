@@ -36,12 +36,19 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="userName"
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/contactsProfileFragment"
         android:name="com.vkunitsyn.level3.ui.ContactsProfileFragment"
-        android:label="ContactsProfileFragment" />
+        android:label="ContactsProfileFragment" >
+        <argument
+            android:name="contact"
+            app:argType="com.vkunitsyn.level3.model.Contact" />
+    </fragment>
 
     <fragment
         android:id="@+id/contactsFragment"

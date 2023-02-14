@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import com.vkunitsyn.level3.databinding.FragmentContactsProfileBinding
 import com.vkunitsyn.level3.model.Contact
@@ -14,6 +15,7 @@ import com.vkunitsyn.level3.utils.addPictureGlide
 
 class ContactsProfileFragment : Fragment() {
     private lateinit var binding: FragmentContactsProfileBinding
+    private val args: ContactsProfileFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,8 +33,11 @@ class ContactsProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val contact = arguments?.getParcelable<Contact>("contact")
-
+        val contact = if(FeatureFlags.transactionsEnabled){
+            arguments?.getParcelable<Contact>("contact")
+        }else{
+            args.contact
+        }
         binding.apply {
             imgProfilePicture.addPictureGlide(contact?.picture)
             tvName.text = contact?.name

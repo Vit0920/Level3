@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.vkunitsyn.level3.R
 import com.vkunitsyn.level3.databinding.FragmentProfileBinding
 import com.vkunitsyn.level3.utils.Constants
@@ -17,6 +17,7 @@ import com.vkunitsyn.level3.utils.FeatureFlags
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
+    private val args: ProfileFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +30,12 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.tvName.text = if (FeatureFlags.transactionsEnabled){
+             arguments?.getString(Constants.USER_NAME)
+        }else{
+             args.userName
+        }
 
-        binding.tvName.text = arguments?.getString(Constants.USER_NAME)
         processViewContactsButtonClick()
         processEditProfileButtonClick()
     }
@@ -67,7 +72,6 @@ class ProfileFragment : Fragment() {
             } else {
                 findNavController().navigate(R.id.action_profileFragment_to_contactsFragment)
             }
-
         }
     }
 }
